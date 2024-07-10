@@ -1,35 +1,15 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const EmailController = require('./controllers/emailController');
+require('dotenv').config();
 
-const nodemailer = require('nodemailer');
-const fs = require('fs');
-const path = require('path');
-const { SMTP_SERVER, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD } = require('./config');
+const app = express();
+const port = process.env.PORT || 3000;
 
-async function sendEmail(subject, toEmail, htmlContent) {
-    let transporter = nodemailer.createTransport({
-        host: SMTP_SERVER,
-        port: SMTP_PORT,
-        secure: false, 
-        auth: {
-            user: SMTP_USERNAME,
-            pass: SMTP_PASSWORD
-        }
-    });
+app.use(bodyParser.json());
 
-    let info = await transporter.sendMail({
-        from: SMTP_USERNAME,
-        to: toEmail,
-        subject: subject,
-        html: htmlContent
-    });
+app.post('/send-email', EmailController.sendEmail);
 
-    console.log('Message sent: %s', info.messageId);
-}
-
-if (require.main === module) {
-    const subject = 'Email Test';
-    const toEmail = 'tiago.a.marquez@gmail.com';
-    const templatePath = path.join(__dirname, 'templates', 'sample_template.html');
-    const htmlContent = fs.readFileSync(templatePath, 'utf8');
-
-    sendEmail(subject, toEmail, htmlContent).catch(console.error);
-}
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
