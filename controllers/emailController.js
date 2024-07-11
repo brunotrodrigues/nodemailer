@@ -5,18 +5,29 @@ class EmailController {
     static async sendEmail(req, res) {
         const { to, subject, text, templateName, templateData } = req.body;
 
-        let emailHtml = text;
+        // Template de confirmação para o usuário
+        let userEmailHtml = text;
         if (templateName) {
-            emailHtml = EmailView.getTemplate(templateName, templateData);
+            userEmailHtml = EmailView.getTemplate(templateName, templateData);
         }
 
-        const email = new EmailModel(to, subject, emailHtml);
+        // Template de informações do formulário para o administrador
+        const adminTemplateName = 'admin_template.html';
+        const adminEmailHtml = EmailView.getTemplate(adminTemplateName, templateData);
+
+        const emailUser = new EmailModel(to, subject, userEmailHtml);
+        const emailAdmin = new EmailModel(
+            'tiago.solinf@gmail.com',
+            'Novo formulário submetido',
+            adminEmailHtml
+        );
 
         try {
-            await email.sendEmail();
-            res.status(200).send('Email sent successfully');
+            await emailUser.sendEmail();
+            await emailAdmin.sendEmail();
+            res.status(200).send('Emails enviados com sucesso');
         } catch (error) {
-            res.status(500).send('Error sending email: ' + error.message);
+            res.status(500).send('Erro ao enviar emails: ' + error.message);
         }
     }
 }

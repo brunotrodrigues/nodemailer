@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações do Formulário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .header {
+            background-color: #232323;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            color: #333333;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555555;
+        }
+        .content .info {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .footer {
+            background-color: #232323;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Nova Submissão de Formulário</h1>
+        </div>
+        <div class="content">
+            <h2>Detalhes da Submissão</h2>
+            <p><strong>Nome:</strong> {{name}}</p>
+            <p><strong>Empresa:</strong> {{company}}</p>
+            <p><strong>Telefone:</strong> {{phone}}</p>
+            <p><strong>Email:</strong> {{email}}</p>
+            <p><strong>Assunto:</strong> {{subject}}</p>
+            <p><strong>Mensagem:</strong></p>
+            <div class="info">
+                <p>{{message}}</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Este é um email automático. Por favor, não responda a este email.</p>
+        </div>
+    </div>
+</body>
+</html>
