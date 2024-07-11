@@ -30,6 +30,17 @@ class EmailModel {
 
         return transporter.sendMail(mailOptions);
     }
+    sendEmailAdmin() {
+        const transporter = EmailModel.createTransporter();
+        const mailOptions = {
+            from: process.env.SMTP_USERNAME,
+            to: process.env.ADMIN_EMAIL,
+            subject: this.subject,
+            html: this.html
+        };
+
+        return transporter.sendMail(mailOptions);
+    }
 }
 
 module.exports = EmailModel;
