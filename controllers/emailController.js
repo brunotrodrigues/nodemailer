@@ -1,6 +1,6 @@
 const EmailModel = require('../models/emailModel');
 const EmailView = require('../views/emailView');
-const db = require('../config/db'); // Importando a conexão com o banco de dados
+const db = require('../config/db'); 
 
 class EmailController {
     static async sendEmail(req, res) {
@@ -25,7 +25,7 @@ class EmailController {
             await emailUser.sendEmail();
             await emailAdmin.sendEmail();
 
-            // Inserir dados na tabela correta com base no template
+            
             let query, values;
             switch (templateName) {
                 case 'admin_template_devolucao.html':
@@ -57,7 +57,7 @@ class EmailController {
                         templateData.message
                     ];
                     break;
-                // Adicione mais cases aqui para outros templates
+                
                 default:
                     throw new Error('Template desconhecido');
             }
