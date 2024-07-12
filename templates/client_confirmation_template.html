@@ -17,19 +17,19 @@
             margin: 0 auto;
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 0;
             border-radius: 10px;
+            overflow: hidden;
         }
         .header {
-              background-color: #232323;
+            background-color: #0078d4;
             color: #ffffff;
-            padding: 20px;
             text-align: center;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            padding: 20px;
         }
-        .header h1 {
-            margin: 0;
+        .header img {
+            width: 100px;
+            height: auto;
         }
         .content {
             padding: 20px;
@@ -49,13 +49,12 @@
             color: #333333;
         }
         .footer {
-              background-color: #232323;
-            color: #ffffff;
+            background-color: #f4f4f4;
+            color: #555555;
             text-align: center;
             padding: 10px 20px;
             margin-top: 20px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            border-top: 1px solid #dddddd;
         }
         .footer p {
             margin: 0;
@@ -66,28 +65,28 @@
             padding: 10px 20px;
             font-size: 16px;
             color: #ffffff;
-              background-color: #232323;
+            background-color: #0078d4;
             text-decoration: none;
             border-radius: 5px;
         }
         .button:hover {
-             background-color: #232323;
+            background-color: #005bb5;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Confirmação de Receção</h1>
+              <img src="https://dev-marquez.pt/sensordinwhite.svg" alt="Logo">
         </div>
         <div class="content">
             <h2>Olá, {{name}}</h2>
-            <p>Obrigado por entrar em contacto conosco. Recebemos sua mensagem e entraremos em contacto em breve.</p>
-            <p>Atenciosamente,</p>
-            <p class="signature">Equipe Sensordin</p>
-            <a href="https://www.sensordin.pt" class="button">Visite nosso site</a>
+            <p>Obrigado por entrar em contacto connosco. Recebemos sua mensagem e entraremos em contacto em breve.</p>
+            
+          
         </div>
         <div class="footer">
+            <p>Visite nosso site: <a href="https://www.sensordin.pt">www.sensordin.pt</a></p>
             <p>Este é um email automático. Por favor, não responda a este email.</p>
         </div>
     </div>

@@ -140,7 +140,7 @@ class EmailController {
 
     static async sendReparacaoEmail(req, res) {
         const { to, subject, templateData } = req.body;
-        const clientTemplateName = 'template_reparacao.html';
+        const clientTemplateName = 'client_confirmation_template.htm';
         const clientEmailHtml = EmailView.getTemplate(clientTemplateName, templateData);
 
         const adminTemplateName = 'admin_template_reparacao.html';
@@ -195,6 +195,68 @@ class EmailController {
                         throw err;
                     }
                     console.log('Dados inseridos com sucesso na tabela repairs');
+                });
+            });
+
+            res.status(200).send('Emails enviados com sucesso');
+        } catch (error) {
+            res.status(500).send('Erro ao enviar emails: ' + error.message);
+        }
+    }
+
+    static async sendGeneralEmail(req, res) {
+        const { to, subject, templateData } = req.body;
+        const clientTemplateName = 'client_confirmation_template.html'; // Nome do template do email geral
+        const clientEmailHtml = EmailView.getTemplate(clientTemplateName, templateData);
+
+        const adminTemplateName = 'admin_template.html'; 
+        const adminEmailHtml = EmailView.getTemplate(adminTemplateName, templateData);
+
+        const emailUser = new EmailModel(to, subject, clientEmailHtml);
+        const emailAdmin = new EmailModel(
+            process.env.ADMIN_EMAIL,
+            'Novo formulário de contato submetido',
+            adminEmailHtml
+        );
+
+        try {
+            await emailUser.sendEmail(); // Envia email para o usuário
+            await emailAdmin.sendEmailAdmin(); // Envia email para o administrador
+
+            // Inserir dados na tabela `users`
+            const userQuery = `
+                INSERT INTO users (name, company, phone, email)
+                VALUES (?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                name=VALUES(name), company=VALUES(company), phone=VALUES(phone), email=VALUES(email)
+            `;
+            const userValues = [templateData.name, templateData.company, templateData.phone, templateData.email];
+
+            db.query(userQuery, userValues, (err, result) => {
+                if (err) {
+                    console.error('Erro ao inserir dados na tabela users:', err);
+                    throw err;
+                }
+
+                const userId = result.insertId || result.upsertedId;
+
+                // Inserir dados na tabela `contacts`
+                const contactsQuery = `
+                    INSERT INTO contacts (user_id, subject, message, date)
+                    VALUES (?, ?, ?, NOW())
+                `;
+                const contactsValues = [
+                    userId,
+                    templateData.subject,
+                    templateData.message
+                ];
+
+                db.query(contactsQuery, contactsValues, (err, result) => {
+                    if (err) {
+                        console.error('Erro ao inserir dados na tabela contacts:', err);
+                        throw err;
+                    }
+                    console.log('Dados inseridos com sucesso na tabela contacts');
                 });
             });
 

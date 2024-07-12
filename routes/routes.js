@@ -6,5 +6,6 @@ const router = express.Router();
 router.post('/send-email-return', EmailController.sendDevolucaoEmail);
 router.post('/send-email-warranty', EmailController.sendGarantiaEmail);
 router.post('/send-email-repair', EmailController.sendReparacaoEmail);
+router.post('/send-general-email', EmailController.sendGeneralEmail)
 
 module.exports = router;
