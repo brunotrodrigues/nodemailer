@@ -22,29 +22,46 @@ class EmailController {
             await emailUser.sendEmail(); // Envia email para o usuário
             await emailAdmin.sendEmailAdmin(); // Envia email para o administrador
 
-            const query = `INSERT INTO returns_form (name, company, phone, email, vat, prodRef, designation, seriesNumber, invoiceDate, invoiceNumber, quantity, state, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-            const values = [
-                templateData.name,
-                templateData.company,
-                templateData.phone,
-                templateData.email,
-                templateData.vat,
-                templateData.prodRef,
-                templateData.designation,
-                templateData.seriesNumber,
-                templateData.invoiceDate,
-                templateData.invoiceNumber,
-                templateData.quantity,
-                templateData.state,
-                templateData.message
-            ];
+            // Inserir dados na tabela `users`
+            const userQuery = `
+                INSERT INTO users (name, company, phone, email, vat_number)
+                VALUES (?, ?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                name=VALUES(name), company=VALUES(company), phone=VALUES(phone), email=VALUES(email)
+            `;
+            const userValues = [templateData.name, templateData.company, templateData.phone, templateData.email, templateData.vat];
 
-            db.query(query, values, (err, result) => {
+            db.query(userQuery, userValues, (err, result) => {
                 if (err) {
-                    console.error('Erro ao inserir dados na tabela:', err);
+                    console.error('Erro ao inserir dados na tabela users:', err);
                     throw err;
                 }
-                console.log('Dados inseridos com sucesso na tabela');
+
+                const userId = result.insertId || result.upsertedId;
+
+                // Inserir dados na tabela `returns`
+                const returnsQuery = `
+                    INSERT INTO returns (user_id, invoice_date, quantity, product_ref, serial_number, invoice_number, state, message)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                `;
+                const returnsValues = [
+                    userId,
+                    templateData.invoiceDate,
+                    templateData.quantity,
+                    templateData.prodRef,
+                    templateData.seriesNumber,
+                    templateData.invoiceNumber,
+                    templateData.state,
+                    templateData.message
+                ];
+
+                db.query(returnsQuery, returnsValues, (err, result) => {
+                    if (err) {
+                        console.error('Erro ao inserir dados na tabela returns:', err);
+                        throw err;
+                    }
+                    console.log('Dados inseridos com sucesso na tabela returns');
+                });
             });
 
             res.status(200).send('Emails enviados com sucesso');
@@ -72,30 +89,47 @@ class EmailController {
             await emailUser.sendEmail(); // Envia email para o usuário
             await emailAdmin.sendEmailAdmin(); // Envia email para o administrador
 
-            const query = `INSERT INTO warranty_form (name, company, phone, email, vat, prodRef, designation, seriesNumber, invoiceDate, invoiceNumber, quantity, damageMention, equipmentUse, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-            const values = [
-                templateData.name,
-                templateData.company,
-                templateData.phone,
-                templateData.email,
-                templateData.vat,
-                templateData.prodRef,
-                templateData.designation,
-                templateData.seriesNumber,
-                templateData.invoiceDate,
-                templateData.invoiceNumber,
-                templateData.quantity,
-                templateData.damageMention,
-                templateData.equipmentUse,
-                templateData.message
-            ];
+            // Inserir dados na tabela `users`
+            const userQuery = `
+                INSERT INTO users (name, company, phone, email, vat_number)
+                VALUES (?, ?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                name=VALUES(name), company=VALUES(company), phone=VALUES(phone), email=VALUES(email)
+            `;
+            const userValues = [templateData.name, templateData.company, templateData.phone, templateData.email, templateData.vat];
 
-            db.query(query, values, (err, result) => {
+            db.query(userQuery, userValues, (err, result) => {
                 if (err) {
-                    console.error('Erro ao inserir dados na tabela:', err);
+                    console.error('Erro ao inserir dados na tabela users:', err);
                     throw err;
                 }
-                console.log('Dados inseridos com sucesso na tabela');
+
+                const userId = result.insertId || result.upsertedId;
+
+                // Inserir dados na tabela `guarantees`
+                const guaranteesQuery = `
+                    INSERT INTO guarantees (user_id, invoice_date, quantity, product_ref, serial_number, invoice_number, equipment_in_use, damage_mentioned, message)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                `;
+                const guaranteesValues = [
+                    userId,
+                    templateData.invoiceDate,
+                    templateData.quantity,
+                    templateData.prodRef,
+                    templateData.seriesNumber,
+                    templateData.invoiceNumber,
+                    templateData.equipmentUse,
+                    templateData.damageMention,
+                    templateData.message
+                ];
+
+                db.query(guaranteesQuery, guaranteesValues, (err, result) => {
+                    if (err) {
+                        console.error('Erro ao inserir dados na tabela guarantees:', err);
+                        throw err;
+                    }
+                    console.log('Dados inseridos com sucesso na tabela guarantees');
+                });
             });
 
             res.status(200).send('Emails enviados com sucesso');
@@ -123,28 +157,45 @@ class EmailController {
             await emailUser.sendEmail(); // Envia email para o usuário
             await emailAdmin.sendEmailAdmin(); // Envia email para o administrador
 
-            const query = `INSERT INTO repair_form (name, company, phone, email, vat, prodRef, designation, seriesNumber, invoiceDate, invoiceNumber, quantity, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-            const values = [
-                templateData.name,
-                templateData.company,
-                templateData.phone,
-                templateData.email,
-                templateData.vat,
-                templateData.prodRef,
-                templateData.designation,
-                templateData.seriesNumber,
-                templateData.invoiceDate,
-                templateData.invoiceNumber,
-                templateData.quantity,
-                templateData.message
-            ];
+            // Inserir dados na tabela `users`
+            const userQuery = `
+                INSERT INTO users (name, company, phone, email, vat_number)
+                VALUES (?, ?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                name=VALUES(name), company=VALUES(company), phone=VALUES(phone), email=VALUES(email)
+            `;
+            const userValues = [templateData.name, templateData.company, templateData.phone, templateData.email, templateData.vat];
 
-            db.query(query, values, (err, result) => {
+            db.query(userQuery, userValues, (err, result) => {
                 if (err) {
-                    console.error('Erro ao inserir dados na tabela:', err);
+                    console.error('Erro ao inserir dados na tabela users:', err);
                     throw err;
                 }
-                console.log('Dados inseridos com sucesso na tabela');
+
+                const userId = result.insertId || result.upsertedId;
+
+                // Inserir dados na tabela `repairs`
+                const repairsQuery = `
+                    INSERT INTO repairs (user_id, invoice_date, quantity, product_ref, serial_number, invoice_number, message)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                `;
+                const repairsValues = [
+                    userId,
+                    templateData.invoiceDate,
+                    templateData.quantity,
+                    templateData.prodRef,
+                    templateData.seriesNumber,
+                    templateData.invoiceNumber,
+                    templateData.message
+                ];
+
+                db.query(repairsQuery, repairsValues, (err, result) => {
+                    if (err) {
+                        console.error('Erro ao inserir dados na tabela repairs:', err);
+                        throw err;
+                    }
+                    console.log('Dados inseridos com sucesso na tabela repairs');
+                });
             });
 
             res.status(200).send('Emails enviados com sucesso');
