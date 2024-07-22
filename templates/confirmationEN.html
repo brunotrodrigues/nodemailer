@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #0078d4;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .header img {
+            width: 100px;
+            height: auto;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content h2 {
+            color: #333333;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555555;
+        }
+        .content .signature {
+            margin-top: 30px;
+            font-weight: bold;
+            color: #333333;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            color: #555555;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-top: 1px solid #dddddd;
+        }
+        .footer p {
+            margin: 0;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #0078d4;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://brunosolinf.sirv.com/Images/sensordinwhite.svg" alt="Logo">
+        </div>
+        <div class="content">
+            <h2>Hello, {{name}}</h2>
+            <p>Thank you for contacting us. We have received your message and will get back to you shortly.</p>
+        </div>
+        <div class="footer">
+            <p>Visit our website: <a href="https://www.sensordin.pt">www.sensordin.pt</a></p>
+            <p>This is an automated email. Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -3,10 +3,10 @@ const EmailController = require('../controllers/emailController');
 
 const router = express.Router();
 
-router.post('/send-email-return', EmailController.sendDevolucaoEmail);
-router.post('/send-email-warranty', EmailController.sendGarantiaEmail);
-router.post('/send-email-repair', EmailController.sendReparacaoEmail);
-router.post('/send-general-email', EmailController.sendGeneralEmail)
-router.post('/send-questions-email', EmailController.sendQuestionsEmail)
+router.post('/email/return', EmailController.sendDevolucaoEmail);
+router.post('/email/warranty', EmailController.sendGarantiaEmail);
+router.post('/email/repair', EmailController.sendReparacaoEmail);
+router.post('/email/general', EmailController.sendGeneralEmail)
+router.post('/email/questions', EmailController.sendQuestionsEmail)
 
 module.exports = router;
