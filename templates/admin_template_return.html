@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações do Formulário</title>
+    <title>Informações do Formulário - Devolução</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,22 +17,23 @@
             margin: 0 auto;
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 0;
             border-radius: 10px;
+            overflow: hidden;
         }
         .header {
-            background-color: #232323;
+            background-color: #0078d4;
             color: #ffffff;
-            padding: 20px;
             text-align: center;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            padding: 20px;
         }
-        .header h1 {
-            margin: 0;
+        .header img {
+            width: 100px;
+            height: auto;
         }
         .content {
             padding: 20px;
+            text-align: left;
         }
         .content h2 {
             color: #333333;
@@ -42,27 +43,24 @@
             line-height: 1.5;
             color: #555555;
         }
-        .content .info {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
         .footer {
-            background-color: #232323;
-            color: #ffffff;
+            background-color: #f4f4f4;
+            color: #555555;
             text-align: center;
             padding: 10px 20px;
             margin-top: 20px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            border-top: 1px solid #dddddd;
+        }
+        .footer p {
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nova Submissão de Formulário</h1>
+            <img src="https://brunosolinf.sirv.com/Images/sensordinwhite.svg" alt="Logo">
+            <h1>Nova Submissão de Formulário - Devolução</h1>
         </div>
         <div class="content">
             <h2>Detalhes da Submissão</h2>
@@ -70,12 +68,12 @@
             <p><strong>Empresa:</strong> {{company}}</p>
             <p><strong>Telefone:</strong> {{phone}}</p>
             <p><strong>Email:</strong> {{email}}</p>
-            <p><strong>Designação:</strong> {{designation}}</p>
             <p><strong>Nº Contribuinte:</strong> {{vat}}</p>
             <p><strong>Ref. Produto:</strong> {{prodRef}}</p>
+            <p><strong>Designação:</strong> {{designation}}</p>
             <p><strong>Nº Série:</strong> {{seriesNumber}}</p>
-            <p><strong>Nº Fatura:</strong> {{invoiceNumber}}</p>
             <p><strong>Data Fatura:</strong> {{invoiceDate}}</p>
+            <p><strong>Nº Fatura:</strong> {{invoiceNumber}}</p>
             <p><strong>Quantidade:</strong> {{quantity}}</p>
             <p><strong>Estado:</strong> {{state}}</p>
             <p><strong>Mensagem:</strong></p>

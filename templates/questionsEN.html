@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações do Formulário - Perguntas</title>
+    <title>Form Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,23 +17,22 @@
             margin: 0 auto;
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 0;
+            padding: 20px;
             border-radius: 10px;
-            overflow: hidden;
         }
         .header {
-            background-color: #0078d4;
+            background-color: #232323;
             color: #ffffff;
-            text-align: center;
             padding: 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
-        .header img {
-            width: 100px;
-            height: auto;
+        .header h1 {
+            margin: 0;
         }
         .content {
             padding: 20px;
-            text-align: left;
         }
         .content h2 {
             color: #333333;
@@ -43,38 +42,41 @@
             line-height: 1.5;
             color: #555555;
         }
-        .footer {
+        .content .info {
             background-color: #f4f4f4;
-            color: #555555;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .footer {
+            background-color: #232323;
+            color: #ffffff;
             text-align: center;
             padding: 10px 20px;
             margin-top: 20px;
-            border-top: 1px solid #dddddd;
-        }
-        .footer p {
-            margin: 0;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://brunosolinf.sirv.com/Images/sensordinwhite.svg" alt="Logo">
-            <h1>Nova Submissão de Formulário - Perguntas</h1>
+            <h1>New Form Submission</h1>
         </div>
         <div class="content">
-            <h2>Detalhes da Submissão</h2>
-            <p><strong>Nome:</strong> {{name}}</p>
-            <p><strong>Empresa:</strong> {{company}}</p>
-            <p><strong>Telefone:</strong> {{phone}}</p>
+            <h2>Submission Details</h2>
+            <p><strong>Name:</strong> {{name}}</p>
+            <p><strong>Company:</strong> {{company}}</p>
+            <p><strong>Phone:</strong> {{phone}}</p>
             <p><strong>Email:</strong> {{email}}</p>
-            <p><strong>Mensagem:</strong></p>
+            <p><strong>Message:</strong></p>
             <div class="info">
                 <p>{{message}}</p>
             </div>
         </div>
         <div class="footer">
-            <p>Este é um email automático. Por favor, não responda a este email.</p>
+            <p>This is an automated email. Please do not reply to this email.</p>
         </div>
     </div>
 </body>
