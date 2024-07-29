@@ -306,6 +306,74 @@ class EmailControllerEN {
             res.status(500).send('Error sending emails: ' + error.message);
         }
     }
+    static async sendOptionBasedEmailEN(req, res) {
+        const { to, cc, subject, templateData, contactOption } = req.body;
+
+        if (!to) {
+            return res.status(400).send('Error: Recipient email address is required.');
+        }
+        if (!EmailController.validateEmail(to)) {
+            return res.status(400).send('Error: Invalid recipient email address.');
+        }
+        if (cc && !EmailController.validateEmail(cc)) {
+            return res.status(400).send('Error: Invalid CC email address.');
+        }
+        if (!subject) {
+            return res.status(400).send('Error: Email subject is required.');
+        }
+        if (!templateData) {
+            return res.status(400).send('Error: Template data is required.');
+        }
+        if (!contactOption) {
+            return res.status(400).send('Error: Contact option is required.');
+        }
+
+        let contactEmail;
+
+        try {
+            contactEmail = await ContactEmailModel.getEmailByContactOption(contactOption);
+            if (!contactEmail) {
+                return res.status(400).send('Error: Invalid contact option.');
+            }
+        } catch (error) {
+            return res.status(500).send(`Error fetching contact email: ${error.message}`);
+        }
+
+        const clientTemplateName = 'client_confirmation_template.html';
+        const adminTemplateName = 'admin_template.html';
+
+        let clientEmailHtml, adminEmailHtml;
+
+        try {
+            clientEmailHtml = EmailView.getTemplate(clientTemplateName, templateData);
+        } catch (error) {
+            return res.status(500).send(`Error getting client template: ${error.message}`);
+        }
+
+        try {
+            adminEmailHtml = EmailView.getTemplate(adminTemplateName, templateData);
+        } catch (error) {
+            return res.status(500).send(`Error getting admin template: ${error.message}`);
+        }
+
+        const emailUser = new EmailModel(to, subject, clientEmailHtml);
+        const emailAdmin = new EmailModel(
+            contactEmail,
+            'New contact form submitted',
+            adminEmailHtml,
+            cc
+        );
+
+        try {
+            await emailUser.sendEmail(); // Send email to the user
+            await emailAdmin.sendEmail(); // Send email to the admin with CC
+
+            res.status(200).send('Emails sent successfully');
+        } catch (error) {
+            res.status(500).send('Error sending emails: ' + error.message);
+        }
+    }
+
 }
 
 module.exports = EmailControllerEN;
