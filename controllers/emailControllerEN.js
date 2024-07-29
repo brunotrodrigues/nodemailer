@@ -8,7 +8,6 @@ class EmailControllerEN {
     }
 
     static validateTemplateData(templateData) {
-        // Example validation for specific fields
         if (templateData.phoneNumber && templateData.phoneNumber.length !== 9) {
             return { valid: false, message: 'Phone number must be 9 digits long.' };
         }
@@ -19,14 +18,16 @@ class EmailControllerEN {
     }
 
     static async sendReturnEmailEN(req, res) {
-        const { to, subject, templateData } = req.body;
+        const { to, cc, subject, templateData } = req.body;
 
-        // Validations
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
         if (!EmailControllerEN.validateEmail(to)) {
             return res.status(400).send('Error: Recipient email address is invalid.');
+        }
+        if (cc && !EmailControllerEN.validateEmail(cc)) {
+            return res.status(400).send('Error: CC email address is invalid.');
         }
         if (!subject) {
             return res.status(400).send('Error: Email subject is required.');
@@ -60,12 +61,13 @@ class EmailControllerEN {
         const emailAdmin = new EmailModel(
             process.env.ADMIN_EMAIL,
             'New return form submitted',
-            adminEmailHtml
+            adminEmailHtml,
+            cc
         );
 
         try {
             await emailUser.sendEmail(); // Sends email to the user
-            await emailAdmin.sendEmailAdmin(); // Sends email to the administrator
+            await emailAdmin.sendEmail(); // Sends email to the administrator with CC
 
             res.status(200).send('Emails sent successfully');
         } catch (error) {
@@ -74,13 +76,16 @@ class EmailControllerEN {
     }
 
     static async sendWarrantyEmailEN(req, res) {
-        const { to, subject, templateData } = req.body;
+        const { to, cc, subject, templateData } = req.body;
 
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
         if (!EmailControllerEN.validateEmail(to)) {
             return res.status(400).send('Error: Recipient email address is invalid.');
+        }
+        if (cc && !EmailControllerEN.validateEmail(cc)) {
+            return res.status(400).send('Error: CC email address is invalid.');
         }
         if (!subject) {
             return res.status(400).send('Error: Email subject is required.');
@@ -114,12 +119,13 @@ class EmailControllerEN {
         const emailAdmin = new EmailModel(
             process.env.ADMIN_EMAIL,
             'New warranty form submitted',
-            adminEmailHtml
+            adminEmailHtml,
+            cc
         );
 
         try {
-            await emailUser.sendEmail();
-            await emailAdmin.sendEmailAdmin();
+            await emailUser.sendEmail(); // Sends email to the user
+            await emailAdmin.sendEmail(); // Sends email to the administrator with CC
 
             res.status(200).send('Emails sent successfully');
         } catch (error) {
@@ -128,13 +134,16 @@ class EmailControllerEN {
     }
 
     static async sendRepairEmailEN(req, res) {
-        const { to, subject, templateData } = req.body;
+        const { to, cc, subject, templateData } = req.body;
 
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
         if (!EmailControllerEN.validateEmail(to)) {
             return res.status(400).send('Error: Recipient email address is invalid.');
+        }
+        if (cc && !EmailControllerEN.validateEmail(cc)) {
+            return res.status(400).send('Error: CC email address is invalid.');
         }
         if (!subject) {
             return res.status(400).send('Error: Email subject is required.');
@@ -168,12 +177,13 @@ class EmailControllerEN {
         const emailAdmin = new EmailModel(
             process.env.ADMIN_EMAIL,
             'New repair form submitted',
-            adminEmailHtml
+            adminEmailHtml,
+            cc
         );
 
         try {
             await emailUser.sendEmail(); // Sends email to the user
-            await emailAdmin.sendEmailAdmin(); // Sends email to the administrator
+            await emailAdmin.sendEmail(); // Sends email to the administrator with CC
 
             res.status(200).send('Emails sent successfully');
         } catch (error) {
@@ -182,13 +192,16 @@ class EmailControllerEN {
     }
 
     static async sendGeneralEmailEN(req, res) {
-        const { to, subject, templateData } = req.body;
+        const { to, cc, subject, templateData } = req.body;
 
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
         if (!EmailControllerEN.validateEmail(to)) {
             return res.status(400).send('Error: Recipient email address is invalid.');
+        }
+        if (cc && !EmailControllerEN.validateEmail(cc)) {
+            return res.status(400).send('Error: CC email address is invalid.');
         }
         if (!subject) {
             return res.status(400).send('Error: Email subject is required.');
@@ -222,12 +235,13 @@ class EmailControllerEN {
         const emailAdmin = new EmailModel(
             process.env.ADMIN_EMAIL,
             'New contact form submitted',
-            adminEmailHtml
+            adminEmailHtml,
+            cc
         );
 
         try {
-            await emailUser.sendEmail();
-            await emailAdmin.sendEmailAdmin();
+            await emailUser.sendEmail(); // Sends email to the user
+            await emailAdmin.sendEmail(); // Sends email to the administrator with CC
 
             res.status(200).send('Emails sent successfully');
         } catch (error) {
@@ -236,13 +250,16 @@ class EmailControllerEN {
     }
 
     static async sendQuestionsEmailEN(req, res) {
-        const { to, subject, templateData } = req.body;
+        const { to, cc, subject, templateData } = req.body;
 
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
         if (!EmailControllerEN.validateEmail(to)) {
             return res.status(400).send('Error: Recipient email address is invalid.');
+        }
+        if (cc && !EmailControllerEN.validateEmail(cc)) {
+            return res.status(400).send('Error: CC email address is invalid.');
         }
         if (!subject) {
             return res.status(400).send('Error: Email subject is required.');
@@ -276,12 +293,13 @@ class EmailControllerEN {
         const emailAdmin = new EmailModel(
             process.env.ADMIN_EMAIL,
             'New contact form submitted',
-            adminEmailHtml
+            adminEmailHtml,
+            cc
         );
 
         try {
-            await emailUser.sendEmail();
-            await emailAdmin.sendEmailAdmin();
+            await emailUser.sendEmail(); // Sends email to the user
+            await emailAdmin.sendEmail(); // Sends email to the administrator with CC
 
             res.status(200).send('Emails sent successfully');
         } catch (error) {

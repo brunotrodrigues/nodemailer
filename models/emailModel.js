@@ -1,10 +1,11 @@
 const nodemailer = require('nodemailer');
 
 class EmailModel {
-    constructor(to, subject, html) {
+    constructor(to, subject, html, cc = null) {
         this.to = to;
         this.subject = subject;
         this.html = html;
+        this.cc = cc;
     }
 
     static createTransporter() {
@@ -25,18 +26,24 @@ class EmailModel {
             from: process.env.SMTP_USERNAME,
             to: this.to,
             subject: this.subject,
-            html: this.html
+            html: this.html,
         };
+
+        if (this.cc) {
+            mailOptions.cc = this.cc;
+        }
 
         return transporter.sendMail(mailOptions);
     }
+
     sendEmailAdmin() {
         const transporter = EmailModel.createTransporter();
         const mailOptions = {
             from: process.env.SMTP_USERNAME,
             to: process.env.ADMIN_EMAIL,
             subject: this.subject,
-            html: this.html
+            html: this.html,
+            cc: this.cc
         };
 
         return transporter.sendMail(mailOptions);
