@@ -307,8 +307,7 @@ class EmailControllerEN {
         }
     }
     static async sendOptionBasedEmailEN(req, res) {
-        const { to, subject, templateData, contactOption } = req.body;
-        const cc = process.env.EMAIL_CC; 
+        const { to, cc, subject, templateData, contactOption } = req.body;
 
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
@@ -366,8 +365,8 @@ class EmailControllerEN {
         );
 
         try {
-            await emailUser.sendEmail(); // Enviar e-mail para o usuário
-            await emailAdmin.sendEmail(); // Enviar e-mail para o admin com CC
+            await emailUser.sendEmail(); // Send email to the user
+            await emailAdmin.sendEmail(); // Send email to the admin with CC
 
             res.status(200).send('Emails sent successfully');
         } catch (error) {
