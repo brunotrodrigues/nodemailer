@@ -309,7 +309,8 @@ class EmailController {
     }
 
     static async sendOptionBasedEmail(req, res) {
-        const { to, cc, subject, templateData, contactOption } = req.body;
+        const { to, subject, templateData, contactOption } = req.body;
+        const cc = process.env.EMAIL_CC; 
 
         if (!to) {
             return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
