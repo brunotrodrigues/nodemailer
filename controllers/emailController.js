@@ -315,25 +315,37 @@ class EmailController {
 
     static async sendOptionBasedEmail(req, res) {
         const { to, subject, templateData, contactOption } = req.body;
-        const cc = process.env.EMAIL_CC; 
+        const cc = process.env.EMAIL_CC;
 
         if (!to) {
-            return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
+            const error = 'Erro: Endereço de email do destinatário é obrigatório.';
+            console.error(error);
+            return res.status(400).send(error);
         }
         if (!EmailController.validateEmail(to)) {
-            return res.status(400).send('Erro: Endereço de email do destinatário é inválido.');
+            const error = 'Erro: Endereço de email do destinatário é inválido.';
+            console.error(error);
+            return res.status(400).send(error);
         }
         if (cc && !EmailController.validateEmail(cc)) {
-            return res.status(400).send('Erro: Endereço de email de CC é inválido.');
+            const error = 'Erro: Endereço de email de CC é inválido.';
+            console.error(error);
+            return res.status(400).send(error);
         }
         if (!subject) {
-            return res.status(400).send('Erro: Assunto do email é obrigatório.');
+            const error = 'Erro: Assunto do email é obrigatório.';
+            console.error(error);
+            return res.status(400).send(error);
         }
         if (!templateData) {
-            return res.status(400).send('Erro: Dados do template são obrigatórios.');
+            const error = 'Erro: Dados do template são obrigatórios.';
+            console.error(error);
+            return res.status(400).send(error);
         }
         if (!contactOption) {
-            return res.status(400).send('Erro: Opção de contato é obrigatória.');
+            const error = 'Erro: Opção de contato é obrigatória.';
+            console.error(error);
+            return res.status(400).send(error);
         }
 
         let contactEmail;
@@ -341,9 +353,12 @@ class EmailController {
         try {
             contactEmail = await ContactEmailModel.getEmailByContactOption(contactOption);
             if (!contactEmail) {
-                return res.status(400).send('Erro: Opção de contato inválida.');
+                const error = 'Erro: Opção de contato inválida.';
+                console.error(error);
+                return res.status(400).send(error);
             }
         } catch (error) {
+            console.error(`Erro ao buscar o email de contato: ${error.message}`);
             return res.status(500).send(`Erro ao buscar o email de contato: ${error.message}`);
         }
 
@@ -355,12 +370,14 @@ class EmailController {
         try {
             clientEmailHtml = EmailView.getTemplate(clientTemplateName, templateData);
         } catch (error) {
+            console.error(`Erro ao obter o template do cliente: ${error.message}`);
             return res.status(500).send(`Erro ao obter o template do cliente: ${error.message}`);
         }
 
         try {
             adminEmailHtml = EmailView.getTemplate(adminTemplateName, templateData);
         } catch (error) {
+            console.error(`Erro ao obter o template do admin: ${error.message}`);
             return res.status(500).send(`Erro ao obter o template do admin: ${error.message}`);
         }
 
@@ -374,13 +391,15 @@ class EmailController {
 
         try {
             await emailUser.sendEmail();
-            await emailAdmin.sendEmail(); 
+            await emailAdmin.sendEmail();
 
             res.status(200).send('Emails enviados com sucesso');
         } catch (error) {
+            console.error('Erro ao enviar emails: ' + error.message);
             res.status(500).send('Erro ao enviar emails: ' + error.message);
         }
     }
+
 }
 
 module.exports = EmailController;

@@ -18,8 +18,8 @@ class EmailControllerEN {
     }
 
     static async sendReturnEmailEN(req, res) {
-        const { to, cc, subject, templateData } = req.body;
-
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC;
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
@@ -76,8 +76,8 @@ class EmailControllerEN {
     }
 
     static async sendWarrantyEmailEN(req, res) {
-        const { to, cc, subject, templateData } = req.body;
-
+        const { to,  subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC;
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
@@ -134,8 +134,8 @@ class EmailControllerEN {
     }
 
     static async sendRepairEmailEN(req, res) {
-        const { to, cc, subject, templateData } = req.body;
-
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC;
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
@@ -191,67 +191,10 @@ class EmailControllerEN {
         }
     }
 
-    static async sendGeneralEmailEN(req, res) {
-        const { to, cc, subject, templateData } = req.body;
-
-        if (!to) {
-            return res.status(400).send('Error: Recipient email address is required.');
-        }
-        if (!EmailControllerEN.validateEmail(to)) {
-            return res.status(400).send('Error: Recipient email address is invalid.');
-        }
-        if (cc && !EmailControllerEN.validateEmail(cc)) {
-            return res.status(400).send('Error: CC email address is invalid.');
-        }
-        if (!subject) {
-            return res.status(400).send('Error: Email subject is required.');
-        }
-        if (!templateData) {
-            return res.status(400).send('Error: Template data is required.');
-        }
-        const templateValidation = EmailControllerEN.validateTemplateData(templateData);
-        if (!templateValidation.valid) {
-            return res.status(400).send('Error: ' + templateValidation.message);
-        }
-
-        const clientTemplateName = 'confirmationEN.html';
-        const adminTemplateName = 'admin_template.html';
-
-        let clientEmailHtml, adminEmailHtml;
-
-        try {
-            clientEmailHtml = EmailView.getTemplate(clientTemplateName, templateData);
-        } catch (error) {
-            return res.status(500).send(`Error fetching client template: ${error.message}`);
-        }
-
-        try {
-            adminEmailHtml = EmailView.getTemplate(adminTemplateName, templateData);
-        } catch (error) {
-            return res.status(500).send(`Error fetching admin template: ${error.message}`);
-        }
-
-        const emailUser = new EmailModel(to, subject, clientEmailHtml);
-        const emailAdmin = new EmailModel(
-            process.env.ADMIN_EMAIL,
-            'New contact form submitted',
-            adminEmailHtml,
-            cc
-        );
-
-        try {
-            await emailUser.sendEmail(); // Sends email to the user
-            await emailAdmin.sendEmail(); // Sends email to the administrator with CC
-
-            res.status(200).send('Emails sent successfully');
-        } catch (error) {
-            res.status(500).send('Error sending emails: ' + error.message);
-        }
-    }
-
+   
     static async sendQuestionsEmailEN(req, res) {
-        const { to, cc, subject, templateData } = req.body;
-
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC;
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
@@ -273,7 +216,7 @@ class EmailControllerEN {
         }
 
         const clientTemplateName = 'confirmationEN.html';
-        const adminTemplateName = 'admin_template_questions.html';
+        const adminTemplateName = 'questionsEN.html';
 
         let clientEmailHtml, adminEmailHtml;
 
@@ -307,8 +250,8 @@ class EmailControllerEN {
         }
     }
     static async sendOptionBasedEmailEN(req, res) {
-        const { to, cc, subject, templateData, contactOption } = req.body;
-
+        const { to, subject, templateData, contactOption } = req.body;
+        const cc = process.env.EMAIL_CC;
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
@@ -339,8 +282,8 @@ class EmailControllerEN {
             return res.status(500).send(`Error fetching contact email: ${error.message}`);
         }
 
-        const clientTemplateName = 'client_confirmation_template.html';
-        const adminTemplateName = 'admin_template.html';
+        const clientTemplateName = 'confirmationEN.html';
+        const adminTemplateName = 'generalEN.html';
 
         let clientEmailHtml, adminEmailHtml;
 

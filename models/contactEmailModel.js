@@ -8,13 +8,14 @@ class ContactEmailModel {
             // faturacao: 'faturacao@sensordin.pt',
             // qualidade: 'qualidade@sensordin.pt',
             // logistica: 'logistica@sensordin.pt',
-            geral: 'bruno.rodrigues@solinf.pt',
-            suporte: 'bruno.rodrigues@solinf.pt',
-            comercial: 'bruno.rodrigues@solinf.pt',
-            financeiro: 'bruno.rodrigues@solinf.pt',
-            faturacao: 'bruno.rodrigues@solinf.pt',
-            qualidade: 'bruno.rodrigues@solinf.pt',
-            logistica: 'bruno.rodrigues@solinf.pt',
+            general: 'bruno.rodrigues@solinf.pt',
+            support: 'bruno.rodrigues@solinf.pt',
+            commercial: 'bruno.rodrigues@solinf.pt',
+            financial: 'bruno.rodrigues@solinf.pt',
+            billing: 'bruno.rodrigues@solinf.pt',
+            quality: 'bruno.rodrigues@solinf.pt',
+            logistics: 'bruno.rodrigues@solinf.pt',
+
         };
 
         return contactEmails[option];
