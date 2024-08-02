@@ -19,7 +19,8 @@ class EmailController {
     }
 
     static async sendDevolucaoEmail(req, res) {
-        const { to, cc, subject, templateData } = req.body;
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC;
 
         if (!to) {
             return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
@@ -67,8 +68,8 @@ class EmailController {
         );
 
         try {
-            await emailUser.sendEmail(); // Envia email para o usuário
-            await emailAdmin.sendEmail(); // Envia email para o administrador com CC
+            await emailUser.sendEmail(); 
+            await emailAdmin.sendEmail(); 
 
             res.status(200).send('Emails enviados com sucesso');
         } catch (error) {
@@ -77,7 +78,8 @@ class EmailController {
     }
 
     static async sendGarantiaEmail(req, res) {
-        const { to, cc, subject, templateData } = req.body;
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC; 
 
         if (!to) {
             return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
@@ -135,7 +137,8 @@ class EmailController {
     }
 
     static async sendReparacaoEmail(req, res) {
-        const { to, cc, subject, templateData } = req.body;
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC; 
 
         if (!to) {
             return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
@@ -193,7 +196,8 @@ class EmailController {
     }
 
     static async sendGeneralEmail(req, res) {
-        const { to, cc, subject, templateData } = req.body;
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC; 
 
         if (!to) {
             return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
@@ -241,8 +245,8 @@ class EmailController {
         );
 
         try {
-            await emailUser.sendEmail(); // Envia email para o usuário
-            await emailAdmin.sendEmail(); // Envia email para o administrador com CC
+            await emailUser.sendEmail(); 
+            await emailAdmin.sendEmail(); 
 
             res.status(200).send('Emails enviados com sucesso');
         } catch (error) {
@@ -251,7 +255,8 @@ class EmailController {
     }
 
     static async sendQuestionsEmail(req, res) {
-        const { to, cc, subject, templateData } = req.body;
+        const { to, subject, templateData } = req.body;
+        const cc = process.env.EMAIL_CC; 
 
         if (!to) {
             return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
@@ -299,8 +304,8 @@ class EmailController {
         );
 
         try {
-            await emailUser.sendEmail(); // Envia email para o usuário
-            await emailAdmin.sendEmail(); // Envia email para o administrador com CC
+            await emailUser.sendEmail(); 
+            await emailAdmin.sendEmail(); 
 
             res.status(200).send('Emails enviados com sucesso');
         } catch (error) {
@@ -368,8 +373,8 @@ class EmailController {
         );
 
         try {
-            await emailUser.sendEmail(); // Envia email para o usuário
-            await emailAdmin.sendEmail(); // Envia email para o administrador com CC
+            await emailUser.sendEmail();
+            await emailAdmin.sendEmail(); 
 
             res.status(200).send('Emails enviados com sucesso');
         } catch (error) {
