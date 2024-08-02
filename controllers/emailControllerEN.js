@@ -1,5 +1,6 @@
 const EmailModel = require('../models/emailModel');
 const EmailView = require('../views/emailView');
+const ContactEmailModel = require('../models/contactEmailModel'); // Certifique-se de que está importando este módulo
 
 class EmailControllerEN {
     static validateEmail(email) {
@@ -76,7 +77,7 @@ class EmailControllerEN {
     }
 
     static async sendWarrantyEmailEN(req, res) {
-        const { to,  subject, templateData } = req.body;
+        const { to, subject, templateData } = req.body;
         const cc = process.env.EMAIL_CC;
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
@@ -191,7 +192,7 @@ class EmailControllerEN {
         }
     }
 
-   
+
     static async sendQuestionsEmailEN(req, res) {
         const { to, subject, templateData } = req.body;
         const cc = process.env.EMAIL_CC;
@@ -249,16 +250,17 @@ class EmailControllerEN {
             res.status(500).send('Error sending emails: ' + error.message);
         }
     }
+
     static async sendOptionBasedEmailEN(req, res) {
         const { to, subject, templateData, contactOption } = req.body;
         const cc = process.env.EMAIL_CC;
         if (!to) {
             return res.status(400).send('Error: Recipient email address is required.');
         }
-        if (!EmailController.validateEmail(to)) {
+        if (!EmailControllerEN.validateEmail(to)) {
             return res.status(400).send('Error: Invalid recipient email address.');
         }
-        if (cc && !EmailController.validateEmail(cc)) {
+        if (cc && !EmailControllerEN.validateEmail(cc)) {
             return res.status(400).send('Error: Invalid CC email address.');
         }
         if (!subject) {
