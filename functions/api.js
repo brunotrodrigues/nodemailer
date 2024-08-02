@@ -1,9 +1,10 @@
+// functions/index.js
 const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const emailRoutes = require('../routes/routes');
-const emailRoutesEN = require('../routes/routesEN');
+const emailRoutes = require('./routes/routes');
+const emailRoutesEN = require('./routes/routesEN');
 require('dotenv').config();
 
 const app = express();
