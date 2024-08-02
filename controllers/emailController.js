@@ -42,8 +42,8 @@ class EmailController {
             return res.status(400).send('Erro: ' + templateValidation.message);
         }
 
-        const clientTemplateName = 'client_confirmation_template.html';
-        const adminTemplateName = 'admin_template_return.html';
+        const clientTemplateName = 'confirmationPT.html';
+        const adminTemplateName = 'returnPT.html';
 
         let clientEmailHtml, adminEmailHtml;
 
@@ -101,8 +101,8 @@ class EmailController {
             return res.status(400).send('Erro: ' + templateValidation.message);
         }
 
-        const clientTemplateName = 'client_confirmation_template.html';
-        const adminTemplateName = 'admin_template_warranty.html';
+        const clientTemplateName = 'confirmationPT.html';
+        const adminTemplateName = 'warrantyPT.html';
 
         let clientEmailHtml, adminEmailHtml;
 
@@ -160,7 +160,7 @@ class EmailController {
             return res.status(400).send('Erro: ' + templateValidation.message);
         }
 
-        const clientTemplateName = 'client_confirmation_template.html';
+        const clientTemplateName = 'confirmationPT.html';
         const adminTemplateName = 'repairPT.html';
 
         let clientEmailHtml, adminEmailHtml;
@@ -195,64 +195,7 @@ class EmailController {
         }
     }
 
-    static async sendGeneralEmail(req, res) {
-        const { to, subject, templateData } = req.body;
-        const cc = process.env.EMAIL_CC; 
-
-        if (!to) {
-            return res.status(400).send('Erro: Endereço de email do destinatário é obrigatório.');
-        }
-        if (!EmailController.validateEmail(to)) {
-            return res.status(400).send('Erro: Endereço de email do destinatário é inválido.');
-        }
-        if (cc && !EmailController.validateEmail(cc)) {
-            return res.status(400).send('Erro: Endereço de email de CC é inválido.');
-        }
-        if (!subject) {
-            return res.status(400).send('Erro: Assunto do email é obrigatório.');
-        }
-        if (!templateData) {
-            return res.status(400).send('Erro: Dados do template são obrigatórios.');
-        }
-        const templateValidation = EmailController.validateTemplateData(templateData);
-        if (!templateValidation.valid) {
-            return res.status(400).send('Erro: ' + templateValidation.message);
-        }
-
-        const clientTemplateName = 'client_confirmation_template.html';
-        const adminTemplateName = 'admin_template.html';
-
-        let clientEmailHtml, adminEmailHtml;
-
-        try {
-            clientEmailHtml = EmailView.getTemplate(clientTemplateName, templateData);
-        } catch (error) {
-            return res.status(500).send(`Erro ao obter o template do cliente: ${error.message}`);
-        }
-
-        try {
-            adminEmailHtml = EmailView.getTemplate(adminTemplateName, templateData);
-        } catch (error) {
-            return res.status(500).send(`Erro ao obter o template do admin: ${error.message}`);
-        }
-
-        const emailUser = new EmailModel(to, subject, clientEmailHtml);
-        const emailAdmin = new EmailModel(
-            process.env.ADMIN_EMAIL,
-            'Novo formulário de contato submetido',
-            adminEmailHtml,
-            cc
-        );
-
-        try {
-            await emailUser.sendEmail(); 
-            await emailAdmin.sendEmail(); 
-
-            res.status(200).send('Emails enviados com sucesso');
-        } catch (error) {
-            res.status(500).send('Erro ao enviar emails: ' + error.message);
-        }
-    }
+ 
 
     static async sendQuestionsEmail(req, res) {
         const { to, subject, templateData } = req.body;
@@ -278,8 +221,8 @@ class EmailController {
             return res.status(400).send('Erro: ' + templateValidation.message);
         }
 
-        const clientTemplateName = 'client_confirmation_template.html';
-        const adminTemplateName = 'admin_template_questions.html';
+        const clientTemplateName = 'confirmationPT.html';
+        const adminTemplateName = 'questionsPT.html';
 
         let clientEmailHtml, adminEmailHtml;
 
@@ -362,8 +305,8 @@ class EmailController {
             return res.status(500).send(`Erro ao buscar o email de contato: ${error.message}`);
         }
 
-        const clientTemplateName = 'client_confirmation_template.html';
-        const adminTemplateName = 'admin_template.html';
+        const clientTemplateName = 'confirmationPT.html';
+        const adminTemplateName = 'generalPT.html';
 
         let clientEmailHtml, adminEmailHtml;
 

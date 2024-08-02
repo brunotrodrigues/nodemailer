@@ -17,22 +17,23 @@
             margin: 0 auto;
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 0;
             border-radius: 10px;
+            overflow: hidden;
         }
         .header {
-            background-color: #232323;
+            background-color: #0078d4;
             color: #ffffff;
-            padding: 20px;
             text-align: center;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            padding: 20px;
         }
-        .header h1 {
-            margin: 0;
+        .header img {
+            width: 100px;
+            height: auto;
         }
         .content {
             padding: 20px;
+            text-align: left;
         }
         .content h2 {
             color: #333333;
@@ -42,26 +43,23 @@
             line-height: 1.5;
             color: #555555;
         }
-        .content .info {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
         .footer {
-            background-color: #232323;
-            color: #ffffff;
+            background-color: #f4f4f4;
+            color: #555555;
             text-align: center;
             padding: 10px 20px;
             margin-top: 20px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            border-top: 1px solid #dddddd;
+        }
+        .footer p {
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <img src="https://brunosolinf.sirv.com/Images/sensordinwhite.svg" alt="Logo">
             <h1>New Form Submission - Warranty</h1>
         </div>
         <div class="content">
@@ -77,15 +75,15 @@
             <p><strong>Invoice Date:</strong> {{invoiceDate}}</p>
             <p><strong>Invoice Number:</strong> {{invoiceNumber}}</p>
             <p><strong>Quantity:</strong> {{quantity}}</p>
-            <p><strong>Damage Mention:</strong> {{damageMention}}</p>
-            <p><strong>Equipment Use:</strong> {{equipmentUse}}</p>
+            <p><strong>Damages Mentioned on Receipt:</strong> {{damageMention}}</p>
+            <p><strong>Equipment in Use:</strong> {{equipmentUse}}</p>
             <p><strong>Message:</strong></p>
             <div class="info">
                 <p>{{message}}</p>
             </div>
         </div>
         <div class="footer">
-            <p>This is an automated email. Please do not reply to this email.</p>
+            <p>This is an automatic email. Please do not reply to this email.</p>
         </div>
     </div>
 </body>
