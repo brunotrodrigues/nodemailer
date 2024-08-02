@@ -6,8 +6,9 @@ router.post('/email/return', EmailController.sendDevolucaoEmail);
 router.post('/email/warranty', EmailController.sendGarantiaEmail);
 router.post('/email/repair', EmailController.sendReparacaoEmail);
 router.post('/email/general', (req, res) => {
-    console.log("Received request to /email/general with data:", req.body);
+    console.log("POST /api/email/general with data:", req.body);
     try {
+        // Seu código para lidar com esta rota
         res.status(200).json({ message: 'Email sent!' });
     } catch (error) {
         console.error("Error handling /email/general:", error);

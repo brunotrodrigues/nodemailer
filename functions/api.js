@@ -12,6 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
+    console.log("GET /");
     res.status(200).json({ message: "Welcome to NodeMailer-API v1.0, by Solinf, Soluções Informáticas, Lda." });
 });
 
@@ -19,11 +20,12 @@ app.use('/api', emailRoutes);
 app.use('/api', emailRoutesEN);
 
 app.get('*', function (req, res) {
+    console.log("Route not found: ", req.originalUrl);
     res.status(404).json({ message: "Error" });
 });
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error("Internal Server Error: ", err.stack);
     res.status(500).json({ message: "Internal Server Error" });
 });
 
