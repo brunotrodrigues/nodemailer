@@ -7,22 +7,24 @@ const emailRoutesEN = require('../routes/routesEN');
 require('dotenv').config();
 
 const app = express();
-const router = express.Router();
 
 app.use(cors());
 app.use(bodyParser.json());
 
-router.get('/', function (req, res) {
+app.get('/', function (req, res) {
     res.status(200).json({ message: "Welcome to NodeMailer-API v1.0, by Solinf, Soluções Informáticas, Lda." });
 });
 
-router.use('/api', emailRoutes);
-router.use('/api', emailRoutesEN);
+app.use('/api', emailRoutes);
+app.use('/api', emailRoutesEN);
 
-router.get('*', function (req, res) {
+app.get('*', function (req, res) {
     res.status(404).json({ message: "Error" });
 });
 
-app.use('/.netlify/functions/api', router);
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "Internal Server Error" });
+});
 
 module.exports.handler = serverless(app);
