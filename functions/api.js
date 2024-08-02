@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
 });
 
 app.use('/api', emailRoutes);
-app.use('/api', emailRoutesEN);
+app.use('/apiEN', emailRoutesEN);
 
 app.get('*', function (req, res) {
     console.log("Route not found: ", req.originalUrl);
