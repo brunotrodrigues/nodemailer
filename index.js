@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.status(200).json({message: "Welcome to NodeMailer API, by Solinf, Soluções Informáticas, Lda."});
+    res.status(200).json({message: "Welcome to NodeMailer-API v1.0, by Solinf, Soluções Informáticas, Lda."});
 })
 
 app.use('/api', emailRoutes);
