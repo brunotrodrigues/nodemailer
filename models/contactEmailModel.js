@@ -15,7 +15,6 @@ class ContactEmailModel {
             billing: 'bruno.rodrigues@solinf.pt',
             quality: 'bruno.rodrigues@solinf.pt',
             logistics: 'bruno.rodrigues@solinf.pt',
-
         };
 
         return contactEmails[option];
